@@ -47,6 +47,8 @@ stages:
           sudo add-apt-repository ppa:deadsnakes/ppa
           sudo apt install python3.7
           sudo apt install python3-pip
+          sudo apt-get install python3.7-distutils
+          sudo python3.7 -m pip install -U setuptools
           sudo python3.7 -m pip install -U checkov
         workingDirectory: '$(System.DefaultWorkingDirectory)'
 
