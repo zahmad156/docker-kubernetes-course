@@ -97,7 +97,7 @@ stages:
       inputs:
         targetType: 'inline'
         script: |
-          docker build -t acrforakscluster.azurecr.io/webapp:$(tag) app-dotnet
+          docker build -t acr4aks13579.azurecr.io/webapp:$(tag) app-dotnet
 
     - task: Bash@3
       displayName: Scan Container
@@ -105,7 +105,7 @@ stages:
       inputs:
         targetType: 'inline'
         script: |
-          docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v $HOME/Library/Caches:/root/.cache/ aquasec/trivy --exit-code 0 --severity MEDIUM,HIGH,CRITICAL --ignore-unfixed acrforakscluster.azurecr.io/webapp:$(tag)
+          docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v $HOME/Library/Caches:/root/.cache/ aquasec/trivy --exit-code 0 --severity MEDIUM,HIGH,CRITICAL --ignore-unfixed acr4aks13579.azurecr.io/webapp:$(tag)
 
     - task: AzureCLI@2
       displayName: Push Container to ACR
@@ -116,7 +116,7 @@ stages:
         inlineScript: |
           az acr login -n acrforakscluster
 
-          docker push acrforakscluster.azurecr.io/webapp:$(tag)
+          docker push acr4aks13579.azurecr.io/webapp:$(tag)
 
     - task: AzureCLI@2
       displayName: '[Optional] Build Container inside ACR'
@@ -126,9 +126,9 @@ stages:
         scriptType: 'bash'
         scriptLocation: 'inlineScript'
         inlineScript: |
-          az acr login -n acrforakscluster
+          az acr login -n acr4aks13579
 
-          az acr build -r acrforakscluster -t webapp:$(tag) app-dotnet
+          az acr build -r acr4aks13579 -t webapp:$(tag) app-dotnet
 
     - task: qetza.replacetokens.replacetokens-task.replacetokens@4
       displayName: Replace TAG in YAML Deployment
