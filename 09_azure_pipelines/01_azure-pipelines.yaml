@@ -44,7 +44,7 @@ steps:
   inputs:
     connectionType: 'Azure Resource Manager'
     azureSubscriptionEndpoint: 'azure-connection'
-    azureResourceGroup: 'rg-aks'
+    azureResourceGroup: 'aks-rg-pk'
     kubernetesCluster: 'aks-cluster-dev'
     namespace: 'default'
     command: 'apply'
