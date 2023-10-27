@@ -232,9 +232,9 @@ stages:
       displayName: Deploy Helm Chart
       inputs:
         connectionType: 'Azure Resource Manager'
-        azureSubscription: 'aks-spn-ca'
-        azureResourceGroup: 'rg-aks-cluster'
-        kubernetesCluster: 'aks-cluster'
+        azureSubscription: 'azure-connection'
+        azureResourceGroup: 'aks-rg-pk'
+        kubernetesCluster: 'aks-cluster-dev'
         namespace: 'qa'
         command: 'upgrade'
         chartType: 'FilePath'
@@ -269,7 +269,7 @@ stages:
       timeoutInMinutes: 1 # 1440 # task times out in 1 day
       enabled: ${{ parameters.runCompletePipeline}}
       inputs:
-        notifyUsers: 'someone@example.com'
+        notifyUsers: 'zarrar.ahmad@gmail.com'
         instructions: |
           Please validate the build configuration and resume
           Tag: $(tag)
@@ -299,7 +299,7 @@ stages:
         scriptLocation: 'inlineScript'
         workingDirectory: '$(System.ArtifactsDirectory)/drop/helm_chart'
         inlineScript: |
-          az aks get-credentials --resource-group rg-aks-cluster --name aks-cluster
+          az aks get-credentials --resource-group aks-rg-pk --name aks-cluster-dev
 
           kubectl cluster-info
 
@@ -322,11 +322,11 @@ stages:
       displayName: 'Scan Cluster Config'
       # enabled: ${{ parameters.runCompletePipeline}}
       inputs:
-        azureSubscription: 'aks-spn-ca'
+        azureSubscription: 'azure-connection'
         scriptType: 'bash'
         scriptLocation: 'inlineScript'
         inlineScript: |
-          az aks get-credentials --resource-group rg-aks-cluster --name aks-cluster
+          az aks get-credentials --resource-group aks-rg-pk --name aks-cluster-dev
           kubectl cluster-info
 
           # Deploy job.yaml to scan Kubernetes config and job-aks.yaml to scan specific AKS config
