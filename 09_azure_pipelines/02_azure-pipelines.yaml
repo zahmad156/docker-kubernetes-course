@@ -110,7 +110,7 @@ stages:
     - task: AzureCLI@2
       displayName: Push Container to ACR
       inputs:
-        azureSubscription: 'aks-spn-ca'
+        azureSubscription: 'azure-connection'
         scriptType: 'bash'
         scriptLocation: 'inlineScript'
         inlineScript: |
@@ -122,7 +122,7 @@ stages:
       displayName: '[Optional] Build Container inside ACR'
       enabled: ${{ parameters.runCompletePipeline}}
       inputs:
-        azureSubscription: 'aks-spn-ca'
+        azureSubscription: 'azure-connection'
         scriptType: 'bash'
         scriptLocation: 'inlineScript'
         inlineScript: |
@@ -187,9 +187,9 @@ stages:
       displayName: Deploy YAML Manifest
       inputs:
         connectionType: 'Azure Resource Manager'
-        azureSubscriptionEndpoint: 'aks-spn-ca'
-        azureResourceGroup: 'rg-aks-cluster'
-        kubernetesCluster: 'aks-cluster'
+        azureSubscriptionEndpoint: 'azure-connection'
+        azureResourceGroup: 'aks-rg-pk'
+        kubernetesCluster: 'aks-cluster-dev'
         namespace: 'default'
         command: 'apply'
         useConfigurationFile: true
