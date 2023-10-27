@@ -114,7 +114,7 @@ stages:
         scriptType: 'bash'
         scriptLocation: 'inlineScript'
         inlineScript: |
-          az acr login -n acrforakscluster
+          az acr login -n acr4aks13579
 
           docker push acr4aks13579.azurecr.io/webapp:$(tag)
 
