@@ -40,8 +40,8 @@ stages:
         targetType: 'inline'
         script: |
           ls $(pwd)/app/dockerfile/java
-          #docker run --tty --volume $(pwd)/app/dockerfile/java:/dfile bridgecrew/checkov --directory /dfile
-          # docker run --tty --volume /app/dockerfile/java:/dfile bridgecrew/checkov --directory /dfile
+          curl -fsSL https://aquasecurity.github.io/trivy-repo/deb/public.key | sudo apt-key add -
+          echo deb https://aquasecurity.github.io/trivy-repo/deb $(lsb_release -sc) main | sudo tee -a /etc/apt/sources.list.d/trivy.list
           sudo apt update
           sudo apt install software-properties-common
           sudo add-apt-repository ppa:deadsnakes/ppa
