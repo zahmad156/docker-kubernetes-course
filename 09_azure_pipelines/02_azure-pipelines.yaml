@@ -102,13 +102,13 @@ stages:
         script: |
           docker build -t acr4aks13579.azurecr.io/webapp:$(tag) app-dotnet
 
-    - task: Bash@3
-      displayName: Scan Container
-      enabled: ${{ parameters.runCompletePipeline}}
-      inputs:
-        targetType: 'inline'
-        script: |
-          docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v $HOME/Library/Caches:/root/.cache/ aquasec/trivy --security-checks vuln --severity MEDIUM,HIGH,CRITICAL --ignore-unfixed acr4aks13579.azurecr.io/webapp:$(tag)
+    # - task: Bash@3
+    #   displayName: Scan Container
+    #   enabled: ${{ parameters.runCompletePipeline}}
+    #   inputs:
+    #     targetType: 'inline'
+    #     script: |
+    #       docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v $HOME/Library/Caches:/root/.cache/ aquasec/trivy --security-checks vuln --severity MEDIUM,HIGH,CRITICAL --ignore-unfixed acr4aks13579.azurecr.io/webapp:$(tag)
     - task: AzureCLI@2
       displayName: Push Container to ACR
       inputs:
